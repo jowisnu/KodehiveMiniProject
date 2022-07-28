@@ -8,5 +8,5 @@ public class MiniProjectModel {
 	private String name;
 	private String born;
 	private String city;
-	private String movie1;
+	private String movie;
 }

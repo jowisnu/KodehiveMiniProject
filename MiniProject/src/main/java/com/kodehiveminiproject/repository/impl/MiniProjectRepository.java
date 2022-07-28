@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kodehiveminiproject.model.CelMovModel;
 import com.kodehiveminiproject.model.CelebrityModel;
 import com.kodehiveminiproject.model.CityModel;
 import com.kodehiveminiproject.model.MiniProjectModel;
@@ -21,14 +22,21 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 	
 	@Override
 	public int InsertData(CelebrityModel celebrityModel) {
-		var query = "insert into t_celebrity(id, name, born, city, movie1, movie2, movie3)" + "values (?,?,?,?,?,?,?)";
+		var query = "insert into t_celebrity(name, born, city)" + "values (?,?,?);";
 		return jdbc.update(query,
-				new Object[] {celebrityModel.getId(),celebrityModel.getName(), celebrityModel.getBorn(), celebrityModel.getCity(), celebrityModel.getMovie1(), celebrityModel.getMovie2(), celebrityModel.getMovie3()});
+				new Object[] {celebrityModel.getName(), celebrityModel.getBorn(), celebrityModel.getCity()});
+	}
+	
+	@Override
+	public int InsertCelebMovie(CelMovModel celmovModel) {
+		var query = "insert into t_cel_mov(idCel, idMov)" + "values (?,?);";
+		return jdbc.update(query,
+				new Object[] {celmovModel.getIdCel(), celmovModel.getIdMov()});
 	}
 
 	@Override
 	public List<CelebrityModel> readCelebrity() {
-		var query = "select cel.id,cel.name,cel.born,cel.city,cel.movie1 from t_celebrity cel;";
+		var query = "select cel.id,cel.name,cel.born,cel.city from t_celebrity cel;";
 		return jdbc.query(query, new BeanPropertyRowMapper<CelebrityModel>(CelebrityModel.class));
 	}
 
@@ -45,30 +53,53 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 	}
 	
 	@Override
-	public List<MiniProjectModel> readAllDataSortMovie(String keyword) {
-		var query = "select cel.id as id, cel.name as name, cel.born as born, cit.name as city, mov.title as movie1  from t_celebrity cel\r\n"
-				+ "	inner join t_city cit  \r\n"
-				+ "		on cel.city = cit.id\r\n"
-				+ "			inner join t_movie mov\r\n"
-				+ "				on cel.movie1 = mov.id"
-				+ "					where mov.title like '%"+keyword+"%';";
+	public List<MiniProjectModel> readAllData() {
+		var query = "select cm.id as id, cel.name as name, cel.born as born, cit.name as city, mov.title as movie from t_cel_mov cm\r\n"
+				+ "	join t_celebrity cel on cm.idCel = cel.id\r\n"
+				+ "	join t_movie mov on cm.idMov = mov.id\r\n"
+				+ "    join t_city cit on cel.city = cit.id;";
 		return jdbc.query(query, new BeanPropertyRowMapper<MiniProjectModel>(MiniProjectModel.class));
-	}
-
-	@Override
-	public int delete(int id) {
-		// TODO Auto-generated method stub
-		var query = "delete from t_celebrity where id = ?";
-		return jdbc.update(query, id);
 	}
 	
 	@Override
-	public int UpdateData(int id, CelebrityModel celebrityModel) {
-		var query = "update t_celebrity set name = ?, born = ?, city = ?, movie1 = ? where id = "+id;
+	public List<MiniProjectModel> readAllDataSortMovie(String keyword) {
+		var query = "select cm.id as id, cel.name as name, cel.born as born, cit.name as city, mov.title as movie from t_cel_mov cm\r\n"
+				+ "	join t_celebrity cel on cm.idCel = cel.id\r\n"
+				+ "		join t_movie mov on cm.idMov = mov.id\r\n"
+				+ "    		join t_city cit on cel.city = cit.id"
+				+ "				where mov.title like '%"+keyword+"%';";
+		return jdbc.query(query, new BeanPropertyRowMapper<MiniProjectModel>(MiniProjectModel.class));
+	}
+	
+	
+	
+	@Override
+	public int UpdateCeleb(int id, CelebrityModel celebrityModel) {
+		var query = "update t_celebrity set name = ?, born = ?, city = ? where id = "+id;
 		return jdbc.update(query,
-				new Object[] {celebrityModel.getName(), celebrityModel.getBorn(), celebrityModel.getCity(), celebrityModel.getMovie1()});
+				new Object[] {celebrityModel.getName(), celebrityModel.getBorn(), celebrityModel.getCity()});
+	}
+	@Override
+	public int UpdateMovie(int id, MovieModel movieModel) {
+		var query = "update t_movie set title = ? where id = "+id;
+		return jdbc.update(query,
+				new Object[] {movieModel.getTitle()});
+	}
+	@Override
+	public int UpdateCity(int id, CityModel cityModel) {
+		var query = "update t_city set name = ? where id = "+id;
+		return jdbc.update(query,
+				new Object[] {cityModel.getName()});
+	}
+	@Override
+	public int UpdateCelebMovie(int id, CelMovModel celmovModel) {
+		var query = "update t_cel_mov set idCel = ?, idMov = ? where id = "+id;
+		return jdbc.update(query,
+				new Object[] {celmovModel.getIdCel(),celmovModel.getIdMov()});
 	}
 
+	
+	
 	@Override
 	public int InsertDataMovie(MovieModel movieModel) {
 		// TODO Auto-generated method stub
@@ -76,7 +107,6 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 		return jdbc.update(query,
 				new Object[] {movieModel.getId(), movieModel.getTitle()});
 	}
-
 	@Override
 	public int InsertDataCity(CityModel cityModel) {
 		// TODO Auto-generated method stub
@@ -85,13 +115,30 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 				new Object[] {cityModel.getId(), cityModel.getName()});
 	}
 	
+	
+	
 	@Override
-	public List<MiniProjectModel> readAll() {
-		var query = "select cel.id as id, cel.name as name, cel.born as born, cit.name as city, mov.title as movie1  from t_celebrity cel\r\n"
-				+ "	inner join t_city cit  \r\n"
-				+ "		on cel.city = cit.id\r\n"
-				+ "			inner join t_movie mov\r\n"
-				+ "				on cel.movie1 = mov.id;";
-		return jdbc.query(query, new BeanPropertyRowMapper<MiniProjectModel>(MiniProjectModel.class));
+	public int DeleteCeleb(int id) {
+		// TODO Auto-generated method stub
+		var query = "delete from t_celebrity where id = ?";
+		return jdbc.update(query, id);
+	}
+	@Override
+	public int DeleteMovie(int id) {
+		// TODO Auto-generated method stub
+		var query = "delete from t_movie where id = ?";
+		return jdbc.update(query, id);
+	}
+	@Override
+	public int DeleteCity(int id) {
+		// TODO Auto-generated method stub
+		var query = "delete from t_city where id = ?";
+		return jdbc.update(query, id);
+	}
+	@Override
+	public int DeleteCelebMovie(int id) {
+		// TODO Auto-generated method stub
+		var query = "delete from t_cel_mov where id = ?";
+		return jdbc.update(query, id);
 	}
 }

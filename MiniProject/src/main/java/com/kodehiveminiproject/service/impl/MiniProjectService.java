@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kodehiveminiproject.model.CelMovModel;
 import com.kodehiveminiproject.model.CelebrityModel;
 import com.kodehiveminiproject.model.CityModel;
 import com.kodehiveminiproject.model.MiniProjectModel;
@@ -24,6 +25,14 @@ public class MiniProjectService implements IMiniProjectService{
 		var result = MiniProjectRepository.InsertData(celebrityModel);
 		return result;
 	}
+	
+	@Override
+	public int InsertCelebMovie(CelMovModel celmovModel) {
+		// TODO Auto-generated method stub
+		var result = MiniProjectRepository.InsertCelebMovie(celmovModel);
+		return result;
+	}
+	
 	
 	@Override
 	public List<CelebrityModel> readCelebrity() {
@@ -48,7 +57,15 @@ public class MiniProjectService implements IMiniProjectService{
 		System.out.println("select success");
 		return result;
 	}
-
+	
+	@Override
+	public List<MiniProjectModel> readAllData() {
+		// TODO Auto-generated method stub
+		var result = MiniProjectRepository.readAllData();
+		System.out.println("select success");
+		return result;
+	}
+	
 	@Override
 	public List<MiniProjectModel> readAllDataSortMovie(String keyword) {
 		// TODO Auto-generated method stub
@@ -57,16 +74,32 @@ public class MiniProjectService implements IMiniProjectService{
 		return result;
 	}
 	
+	
+	
 	@Override
-	public int delete(int id) {
+	public int UpdateCeleb(int id, CelebrityModel celebrityModel) {
 		// TODO Auto-generated method stub
-		return MiniProjectRepository.delete(id);
+		var result = MiniProjectRepository.UpdateCeleb(id, celebrityModel);
+		return result;
+	}
+	@Override
+	public int UpdateMovie(int id, MovieModel movieModel) {
+		// TODO Auto-generated method stub
+		var result = MiniProjectRepository.UpdateMovie(id, movieModel);
+		return result;
 	}
 
 	@Override
-	public int UpdateData(int id, CelebrityModel celebrityModel) {
+	public int UpdateCity(int id, CityModel cityModel) {
 		// TODO Auto-generated method stub
-		var result = MiniProjectRepository.UpdateData(id, celebrityModel);
+		var result = MiniProjectRepository.UpdateCity(id, cityModel);
+		return result;
+	}
+
+	@Override
+	public int UpdateCelebMovie(int id, CelMovModel celmovModel) {
+		// TODO Auto-generated method stub
+		var result = MiniProjectRepository.UpdateCelebMovie(id, celmovModel);
 		return result;
 	}
 	
@@ -87,10 +120,26 @@ public class MiniProjectService implements IMiniProjectService{
 	}
 
 	@Override
-	public List<MiniProjectModel> readAll() {
+	public int DeleteCeleb(int id) {
 		// TODO Auto-generated method stub
-		var result = MiniProjectRepository.readAll();
-		System.out.println("select success");
-		return result;
+		return MiniProjectRepository.DeleteCeleb(id);
+	}
+
+	@Override
+	public int DeleteMovie(int id) {
+		// TODO Auto-generated method stub
+		return MiniProjectRepository.DeleteMovie(id);
+	}
+
+	@Override
+	public int DeleteCity(int id) {
+		// TODO Auto-generated method stub
+		return MiniProjectRepository.DeleteCity(id);
+	}
+
+	@Override
+	public int DeleteCelebMovie(int id) {
+		// TODO Auto-generated method stub
+		return MiniProjectRepository.DeleteCelebMovie(id);
 	}
 }

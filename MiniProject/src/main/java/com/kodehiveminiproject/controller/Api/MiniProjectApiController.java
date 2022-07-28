@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kodehiveminiproject.model.CelMovModel;
 import com.kodehiveminiproject.model.CelebrityModel;
 import com.kodehiveminiproject.model.CityModel;
 import com.kodehiveminiproject.model.MiniProjectModel;
@@ -38,14 +39,17 @@ public class MiniProjectApiController {
 		return "insert success";
 	}
 	
-	@DeleteMapping("/delete/celebrity")
-	public String delete (@RequestParam int id) {
-		return "successfully delete, "+MiniProjectService.delete(id);
+	@PostMapping("/insert/celebrity_movie")
+	public String InsertCelebMovie(@RequestBody CelMovModel celmovModel) {
+		MiniProjectService.InsertCelebMovie(celmovModel);
+		return "insert success";
 	}
 	
+	
+	
 	@GetMapping("/read/all")
-	public List<MiniProjectModel> readAll() {		
-		return MiniProjectService.readAll();
+	public List<MiniProjectModel> readAllData() {		
+		return MiniProjectService.readAllData();
 	}
 	
 	@GetMapping("/read/celebrity")
@@ -68,10 +72,46 @@ public class MiniProjectApiController {
 		return MiniProjectService.readAllDataSortMovie(keyword);
 	}	
 	
+	
+	
 	@PutMapping("/update/celebrity")
-	public ResponseEntity<String> UpdateData(@RequestParam int id, @RequestBody CelebrityModel celebrityModel) {
-		MiniProjectService.UpdateData(id, celebrityModel);  // finds the user with the provided id and update it
+	public ResponseEntity<String> UpdateCeleb(@RequestParam int id, @RequestBody CelebrityModel celebrityModel) {
+		MiniProjectService.UpdateCeleb(id, celebrityModel);  // finds the user with the provided id and update it
 		return new ResponseEntity<>("User updated.", HttpStatus.OK);
+	}
+	@PutMapping("/update/movie")
+	public ResponseEntity<String> UpdateMovie(@RequestParam int id, @RequestBody MovieModel movieModel) {
+		MiniProjectService.UpdateMovie(id, movieModel);  // finds the user with the provided id and update it
+		return new ResponseEntity<>("User updated.", HttpStatus.OK);
+	}
+	@PutMapping("/update/city")
+	public ResponseEntity<String> UpdateCity(@RequestParam int id, @RequestBody CityModel cityModel) {
+		MiniProjectService.UpdateCity(id, cityModel);  // finds the user with the provided id and update it
+		return new ResponseEntity<>("User updated.", HttpStatus.OK);
+	}
+	@PutMapping("/update/celebrity_movie")
+	public ResponseEntity<String> UpdateCelebMovie(@RequestParam int id, @RequestBody CelMovModel celmovModel) {
+		MiniProjectService.UpdateCelebMovie(id, celmovModel);  // finds the user with the provided id and update it
+		return new ResponseEntity<>("User updated.", HttpStatus.OK);
+	}
+	
+	
+	
+	@DeleteMapping("/delete/celebrity")
+	public String DeleteCeleb(@RequestParam int id) {
+		return "successfully delete, "+MiniProjectService.DeleteCeleb(id);
+	}
+	@DeleteMapping("/delete/movie")
+	public String DeleteMovie(@RequestParam int id) {
+		return "successfully delete, "+MiniProjectService.DeleteMovie(id);
+	}	
+	@DeleteMapping("/delete/city")
+	public String DeleteCity(@RequestParam int id) {
+		return "successfully delete, "+MiniProjectService.DeleteCity(id);
+	}
+	@DeleteMapping("/delete/celebrity_movie")
+	public String DeleteCelebMovie(@RequestParam int id) {
+		return "successfully delete, "+MiniProjectService.DeleteCelebMovie(id);
 	}
 	
 	

@@ -10,13 +10,13 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="T_CELEBRITY")
+@Table(name="T_CEL_MOV")
 
-public class CelebrityModel {
+public class CelMovModel {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private int id;
-	private String name;
-	private String born;
-	private int city;
+	private int idCel;
+	private int idMov;
 }
