@@ -72,7 +72,10 @@ public class MiniProjectApiController {
 		return MiniProjectService.readAllDataSortMovie(keyword);
 	}	
 	
-	
+	@GetMapping("/read/ByLimit")
+	public List<MiniProjectModel> readData(@RequestParam int limit, @RequestParam int first) {		
+		return MiniProjectService.readData(limit, first);
+	}
 	
 	@PutMapping("/update/celebrity")
 	public ResponseEntity<String> UpdateCeleb(@RequestParam int id, @RequestBody CelebrityModel celebrityModel) {

@@ -141,4 +141,16 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 		var query = "delete from t_cel_mov where id = ?";
 		return jdbc.update(query, id);
 	}
+
+	@Override
+	public List<MiniProjectModel> readData(int limit, int first) {
+		// TODO Auto-generated method stub
+		var query = "select cm.id as id, cel.name as name, cel.born as born, cit.name as city, mov.title as movie from t_cel_mov cm\r\n"
+				+ "	join t_celebrity cel on cm.idCel = cel.id\r\n"
+				+ "	join t_movie mov on cm.idMov = mov.id\r\n"
+				+ "	join t_city cit on cel.city = cit.id "
+				+ " limit "+first+","+limit;
+		first=first+limit;
+		return jdbc.query(query, new BeanPropertyRowMapper<MiniProjectModel>(MiniProjectModel.class));
+	}
 }

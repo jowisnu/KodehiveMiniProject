@@ -142,4 +142,11 @@ public class MiniProjectService implements IMiniProjectService{
 		// TODO Auto-generated method stub
 		return MiniProjectRepository.DeleteCelebMovie(id);
 	}
+
+	
+	@Override
+	public List<MiniProjectModel> readData(int limit, int first) {
+		// TODO Auto-generated method stub
+		return MiniProjectRepository.readData(limit, first);
+	}
 }

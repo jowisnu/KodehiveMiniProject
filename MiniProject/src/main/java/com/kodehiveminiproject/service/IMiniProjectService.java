@@ -17,6 +17,7 @@ public interface IMiniProjectService {
 	public List<CityModel> readCity();
 	
 	public List<MiniProjectModel> readAllData();
+	public List<MiniProjectModel> readData(int limit, int first);
 	public List<MiniProjectModel> readAllDataSortMovie(String keyword);
 
 	

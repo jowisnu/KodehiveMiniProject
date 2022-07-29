@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Celebrity</title>
+<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
+
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nama</th>
+				<th>Born</th>
+				<th>City</th>
+				<th>Movie</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="data : ${celebmovie}">
+				<td th:text="${data.id}"></td>
+				<td th:text="${data.name}"></td>
+				<td th:text="${data.born}"></td>
+				<td th:text="${data.city}"></td>	
+				<td th:text="${data.movie}"></td>			
+			</tr>  		
+		</tbody>
+	</table>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$.ajax({
+				url : '/celebmovie/all',
+				type : 'get',
+				dataType : 'html'
+			})
+
+			/* 	$('#form-cari').on('submit', function() {
+			 $.ajax({
+			 url : '/learn/jquery/search',
+			 type : 'post',
+			 data : $(this).serialize(),
+			 dataType : 'html'
+			 })
+			 }); */
+
+		});
+	</script>
+</body>
+</html>

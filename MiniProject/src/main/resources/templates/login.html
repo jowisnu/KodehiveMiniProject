@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Login</title>
+	<style>
+	.paddingclass {
+		padding: 20px;
+		text-align: center;
+		font-family: sans-serif;
+	}
+	.center {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#container {
+		text-align: center;
+	}
+	</style>
+	<script src="../js/jquery-3.6.0.min.js"></script> 
+</head>
+<body>
+
+<div >
+<p id="target" class='paddingclass'>Target 1 Paragraph</p>
+<table class="center">
+	<tr>
+		<td><button id="beri" >Beri Warna</button></td>
+		<td><button id="hapus" >Hapus Warna</button></td>
+	</tr>
+</table>
+</div>
+
+<script type="text/javascript">
+	$('#beri').click(function(){
+		$('#target').addClass('warna')
+	})
+	$('#hapus').click(function(){
+		$('#target').removeClass('warna')
+	})
+</script>
+</body>
+</html>
