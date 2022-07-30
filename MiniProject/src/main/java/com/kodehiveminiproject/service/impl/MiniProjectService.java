@@ -11,6 +11,7 @@ import com.kodehiveminiproject.model.CityModel;
 import com.kodehiveminiproject.model.MiniProjectModel;
 import com.kodehiveminiproject.model.MovieModel;
 import com.kodehiveminiproject.repository.IMiniProjectRepository;
+import com.kodehiveminiproject.repository.impl.MiniProjectRepository;
 import com.kodehiveminiproject.service.IMiniProjectService;
 
 @Service
@@ -148,5 +149,16 @@ public class MiniProjectService implements IMiniProjectService{
 	public List<MiniProjectModel> readData(int limit, int first) {
 		// TODO Auto-generated method stub
 		return MiniProjectRepository.readData(limit, first);
+	}
+	
+	@Override
+	public List<CelebrityModel> readAll(){
+		var result = MiniProjectRepository.readAll();
+		
+		for(var row : result) {
+			var movie = MiniProjectRepository.readAllByCeleb(row.getId());
+			row.setMovie(movie);
+		}
+		return result;
 	}
 }

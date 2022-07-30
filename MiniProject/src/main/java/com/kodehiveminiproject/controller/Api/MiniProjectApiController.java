@@ -46,6 +46,10 @@ public class MiniProjectApiController {
 	}
 	
 	
+	@GetMapping("/read/better")
+	public List<CelebrityModel> readAll() {		
+		return MiniProjectService.readAll();
+	}
 	
 	@GetMapping("/read/all")
 	public List<MiniProjectModel> readAllData() {		

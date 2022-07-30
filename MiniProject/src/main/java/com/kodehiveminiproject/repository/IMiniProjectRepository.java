@@ -33,5 +33,6 @@ public interface IMiniProjectRepository {
 	public int DeleteCelebMovie(int id);
 	public List<MiniProjectModel> readData(int limit, int first);
 	
-	
+	public List<MovieModel> readAllByCeleb(int id);
+	public List<CelebrityModel> readAll();
 }

@@ -4,14 +4,20 @@
 <meta charset="UTF-8">
 	<title>Login</title>
 	<style>
-	.paddingclass {
+	.title {
 		padding: 20px;
+		text-align: center;
+		font-family: sans-serif;
+	}
+	.submittext{
+		padding: 5px;
 		text-align: center;
 		font-family: sans-serif;
 	}
 	.center {
 		margin-left: auto;
 		margin-right: auto;
+		text-align: center;
 	}
 	#container {
 		text-align: center;
@@ -22,11 +28,19 @@
 <body>
 
 <div >
-<p id="target" class='paddingclass'>Target 1 Paragraph</p>
+<p id="target" class='title'>Login</p>
 <table class="center">
 	<tr>
-		<td><button id="beri" >Beri Warna</button></td>
-		<td><button id="hapus" >Hapus Warna</button></td>
+		<td class='submittext'>Username: </td>
+		<td><input type="text" name="username" /></td>
+	</tr>
+	<tr>
+		<td class='submittext'>Password : </td>
+		<td><input type="text" name="password" /></td>	
+	</tr>
+	<tr>
+		<td></td>
+		<td><button type="submit" class='center'>Login</button></td>
 	</tr>
 </table>
 </div>

@@ -153,4 +153,20 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 		first=first+limit;
 		return jdbc.query(query, new BeanPropertyRowMapper<MiniProjectModel>(MiniProjectModel.class));
 	}
+	
+	public List<MovieModel> readAllByCeleb(int id){
+		var query = "select b.* from t_cel_mov a\r\n"
+				+ "join t_movie b on a.idMov = b.id\r\n"
+				+ "where a.idCel = ?";
+		return jdbc.query(query, new BeanPropertyRowMapper<MovieModel>(MovieModel.class),new Object[] {id});
+	}
+
+	@Override
+	public List<CelebrityModel> readAll() {
+		// TODO Auto-generated method stub
+		var query = "select * from (	select t_celebrity.id as id, t_celebrity.name as name, t_celebrity.born as born, t_city.name as city from t_celebrity "
+				+ "					join t_city on t_celebrity.city = t_city.id "
+				+ "						group by t_celebrity.name ) as tb";
+		return jdbc.query(query, new BeanPropertyRowMapper<CelebrityModel>(CelebrityModel.class));
+	}
 }

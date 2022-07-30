@@ -35,4 +35,6 @@ public interface IMiniProjectService {
 	public int DeleteMovie(int id);
 	public int DeleteCity(int id);
 	public int DeleteCelebMovie(int id);
+	
+	public List<CelebrityModel> readAll();
 }

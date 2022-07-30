@@ -2,8 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Celebrity</title>
+	<style>
+	.title {
+		padding: 10px;
+		text-align: center;
+		font-family: sans-serif;
+	}
+	.center {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.centertext
+	{
+		text-align: center
+	}
+	</style>
 <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
@@ -11,9 +26,9 @@
 </head>
 <body>
 
-	<table>
+	<table class ="center">
 		<thead>
-			<tr>
+			<tr class ="centertext">
 				<th>ID</th>
 				<th>Nama</th>
 				<th>Born</th>
