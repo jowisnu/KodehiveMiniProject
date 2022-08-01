@@ -54,7 +54,7 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 	
 	@Override
 	public List<MiniProjectModel> readAllData() {
-		var query = "select cm.id as id, cel.name as name, cel.born as born, cit.name as city, mov.title as movie from t_cel_mov cm\r\n"
+		var query = "select cel.name as name, cel.born as born, cit.name as city, mov.title as movie from t_cel_mov cm\r\n"
 				+ "	join t_celebrity cel on cm.idCel = cel.id\r\n"
 				+ "	join t_movie mov on cm.idMov = mov.id\r\n"
 				+ "    join t_city cit on cel.city = cit.id;";
@@ -63,7 +63,7 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 	
 	@Override
 	public List<MiniProjectModel> readAllDataSortMovie(String keyword) {
-		var query = "select cm.id as id, cel.name as name, cel.born as born, cit.name as city, mov.title as movie from t_cel_mov cm\r\n"
+		var query = "select cel.name as name, cel.born as born, cit.name as city, mov.title as movie from t_cel_mov cm\r\n"
 				+ "	join t_celebrity cel on cm.idCel = cel.id\r\n"
 				+ "		join t_movie mov on cm.idMov = mov.id\r\n"
 				+ "    		join t_city cit on cel.city = cit.id"
@@ -145,7 +145,7 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 	@Override
 	public List<MiniProjectModel> readData(int limit, int first) {
 		// TODO Auto-generated method stub
-		var query = "select cm.id as id, cel.name as name, cel.born as born, cit.name as city, mov.title as movie from t_cel_mov cm\r\n"
+		var query = "select cel.name as name, cel.born as born, cit.name as city, mov.title as movie from t_cel_mov cm\r\n"
 				+ "	join t_celebrity cel on cm.idCel = cel.id\r\n"
 				+ "	join t_movie mov on cm.idMov = mov.id\r\n"
 				+ "	join t_city cit on cel.city = cit.id "
@@ -154,6 +154,9 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 		return jdbc.query(query, new BeanPropertyRowMapper<MiniProjectModel>(MiniProjectModel.class));
 	}
 	
+	
+	
+	@Override
 	public List<MovieModel> readAllByCeleb(int id){
 		var query = "select b.* from t_cel_mov a\r\n"
 				+ "join t_movie b on a.idMov = b.id\r\n"
@@ -164,7 +167,7 @@ public class MiniProjectRepository implements IMiniProjectRepository {
 	@Override
 	public List<CelebrityModel> readAll() {
 		// TODO Auto-generated method stub
-		var query = "select * from (	select t_celebrity.id as id, t_celebrity.name as name, t_celebrity.born as born, t_city.name as city from t_celebrity "
+		var query = "select * from ( select t_celebrity.id as id, t_celebrity.name as name, t_celebrity.born as born, t_city.name as city from t_celebrity "
 				+ "					join t_city on t_celebrity.city = t_city.id "
 				+ "						group by t_celebrity.name ) as tb";
 		return jdbc.query(query, new BeanPropertyRowMapper<CelebrityModel>(CelebrityModel.class));

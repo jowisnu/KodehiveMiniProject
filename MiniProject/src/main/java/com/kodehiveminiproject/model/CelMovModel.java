@@ -16,7 +16,6 @@ public class CelMovModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	private int id;
 	private int idCel;
 	private int idMov;
 }

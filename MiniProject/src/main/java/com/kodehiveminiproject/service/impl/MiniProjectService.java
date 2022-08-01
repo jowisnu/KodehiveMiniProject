@@ -1,5 +1,6 @@
 package com.kodehiveminiproject.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,7 +144,6 @@ public class MiniProjectService implements IMiniProjectService{
 		// TODO Auto-generated method stub
 		return MiniProjectRepository.DeleteCelebMovie(id);
 	}
-
 	
 	@Override
 	public List<MiniProjectModel> readData(int limit, int first) {
@@ -157,7 +157,13 @@ public class MiniProjectService implements IMiniProjectService{
 		
 		for(var row : result) {
 			var movie = MiniProjectRepository.readAllByCeleb(row.getId());
-			row.setMovie(movie);
+			List<String> movies = new ArrayList<>();
+			
+			for(var  itemMovie: movie) {
+				movies.add(itemMovie.getTitle());
+			}
+
+			row.setMovie(movies);
 		}
 		return result;
 	}

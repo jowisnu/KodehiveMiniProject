@@ -29,23 +29,32 @@ public class MiniProjectController {
 		return "/login";
 	}
 	
-	@RequestMapping("/celebrity/list")
+	@RequestMapping("/celebrity/dont")
 	public String CelebrityList(Model model) {
 		
 		List<CelebrityModel> CelebrityModelList = new ArrayList<CelebrityModel>();
 		CelebrityModelList = MiniProjectService.readCelebrity();
 		
 		model.addAttribute("celebrity", CelebrityModelList);
+		return "/celebrity_dont";
+	}
+	
+	@RequestMapping("/celebrity/list")
+	public String AllList(Model model) {
+		
+		List<CelebrityModel> CelebrityModelList = new ArrayList<CelebrityModel>();
+		CelebrityModelList = MiniProjectService.readAll();
+				
+		model.addAttribute("celebrity", CelebrityModelList);
 		return "/celebrity";
 	}
 	
-	@RequestMapping("/celebmovie/all")
-	public String AllList(Model model) {
-		
-		List<MiniProjectModel> MiniProjectModelList = new ArrayList<MiniProjectModel>();
-		MiniProjectModelList = MiniProjectService.readAllData();
-		
-		model.addAttribute("celebmovie", MiniProjectModelList);
-		return "/celebmovie";
+	@RequestMapping("/celebrity/try")
+	public String trial(Model model) {
+		List<CelebrityModel> CelebrityModelList = new ArrayList<CelebrityModel>();
+		CelebrityModelList = MiniProjectService.readAll();
+				
+		model.addAttribute("celebrity", CelebrityModelList);
+		return "/celebrity2";
 	}
 }

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>IMDB</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">IMDB</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <p><a href="#"></a></p>
+      <p><a href="#"></a></p>
+      <p><a href="#"></a></p>
+    </div>
+    <div class="col-sm-8 text-left"> 
+		<div class="container">
+		  <h2>Celebrity</h2>
+		  <p></p>                                                                                      
+		  <div class="table-responsive">          
+		  <table class="table table-striped table-hover">
+		    <thead>
+		      <tr>
+		        <th style="width: 5%">Name</th>
+		        <th style="width: 3%">Born</th>
+		        <th style="width: 3%">City</th>
+		        <th style="width: 15%">Movie</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr th:each="data : ${celebrity}">
+		        <td style="width: 5%" th:text="${data.name}"></td>
+		        <td style="width: 3%" th:text="${data.born}"></td>
+		        <td style="width: 3%" th:text="${data.city}"></td>
+		        <td style="width: 15%" th:text="${data.movie}"></td>
+		      </tr>
+		    </tbody>
+		  </table>
+		  <script type="text/javascript">
+				$(document).ready(function() {
+		
+					$.ajax({
+						url : '/celebrity/list',
+						type : 'get',
+						dataType : 'html'
+					})
+		
+					/* 	$('#form-cari').on('submit', function() {
+					 $.ajax({
+					 url : '/learn/jquery/search',
+					 type : 'post',
+					 data : $(this).serialize(),
+					 dataType : 'html'
+					 })
+					 }); */
+		
+				});
+			</script>
+		  </div>
+		</div>
+    </div>
+    
+    
+    <div class="col-sm-2 sidenav">
+		<!-- Trigger the modal with a button -->
+		<div class="btn-group-vertical">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal1">Insert Celebrity</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal3">Delete Celebrity</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal2">Update Celebrity</button>
+		</div>
+		<!-- Modal -->
+		<div id="Modal1" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Insert Celebrity</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>Some text in the modal.</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+		
+		
+		<!-- Modal -->
+		<div id="Modal3" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Delete Celebrity</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>Some text in the modal.</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		
+		<!-- Modal -->
+		<div id="Modal2" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Update Celebrity</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>Some text in the modal.</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+		
+      </div>
+    </div>
+  </div>
+
+<footer class="container-fluid text-center">
+  <p></p>
+</footer>
+
+</body>
+</html>

@@ -25,24 +25,20 @@
 	rel="stylesheet">
 </head>
 <body>
-
-	<table class ="center">
+	<p class='title'>Celebrity</p>
+	<table class = 'center'>
 		<thead>
-			<tr class ="centertext">
-				<th>ID</th>
+			<tr class = 'centertext'>
 				<th>Nama</th>
 				<th>Born</th>
 				<th>City</th>
-				<th>Movie</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="data : ${celebmovie}">
-				<td th:text="${data.id}"></td>
+			<tr th:each="data : ${celebrity}">
 				<td th:text="${data.name}"></td>
 				<td th:text="${data.born}"></td>
-				<td th:text="${data.city}"></td>	
-				<td th:text="${data.movie}"></td>			
+				<td th:text="${data.city}"></td>			
 			</tr>  		
 		</tbody>
 	</table>
@@ -51,7 +47,7 @@
 		$(document).ready(function() {
 
 			$.ajax({
-				url : '/celebmovie/all',
+				url : '/celebrity/dont',
 				type : 'get',
 				dataType : 'html'
 			})

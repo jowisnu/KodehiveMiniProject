@@ -1,5 +1,7 @@
 package com.kodehiveminiproject.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,5 +24,5 @@ public class CelebrityModel {
 	private String city;
 	
 	@Transient
-	private java.util.List<MovieModel> movie;
+	private java.util.List<String> movie;
 }
